@@ -9,9 +9,10 @@ import cors from "cors";
 // Controllers
 import Controller from "./typings/Controller";
 import AuthController from "./controllers/AuthController";
+import { PORT } from "./config";
 
 const app: express.Application = express();
-const server: Server = new Server(app, 3001);
+const server: Server = new Server(app, PORT);
 
 const controllers: Array<Controller> = [new AuthController()];
 

@@ -3,6 +3,7 @@ import { ACCESS_TOKEN_SECRET } from "../config";
 import { ISafeData, UserModel } from "../typings";
 import { users } from "../models/Users";
 import createUser from "../utils/createUser";
+import { professionals } from "../models/Professionals";
 
 interface AuthReturnData {
   message: string;
@@ -25,7 +26,13 @@ class UserService {
       const userFromDb = users.find((user) => user.email === this.email);
       if (userFromDb) {
         if (userFromDb.password === this.password) {
-          const data = this.prepareData(userFromDb);
+          const userPro = professionals.find(
+            (user) => user.id === userFromDb.id
+          );
+          const data = this.prepareData({
+            ...userFromDb,
+            category: userPro?.category,
+          });
           return {
             message: "LOGIN_SUCCESSFUL",
             success: true,

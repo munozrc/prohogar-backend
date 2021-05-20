@@ -3,9 +3,13 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.15.4"
+  },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "node build/index.js",
     "build": "tsc",
+    "postinstall": "npm run build",
     "dev": "nodemon src/index.ts --exec ts-node"
   },
   "keywords": [],

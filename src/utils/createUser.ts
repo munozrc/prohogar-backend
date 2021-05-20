@@ -1,10 +1,10 @@
 import { users } from "../models/Users";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import { UserModel } from "../typings";
 
 export default function createUser(user: UserModel): UserModel {
   const newUser = {
-    id: uuid(),
+    id: uuidv4(),
     name: user.name || "",
     email: user.email,
     password: user.password,

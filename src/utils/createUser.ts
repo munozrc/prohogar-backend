@@ -10,7 +10,7 @@ export default function createUser(user: UserModel): UserModel {
     password: user.password,
     photo: user.photo || "",
     role: user.role || "",
-    category: user.category || "",
+    category: user?.category,
   };
 
   users.push(newUser);

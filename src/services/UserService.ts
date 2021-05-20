@@ -18,7 +18,7 @@ class UserService {
     public readonly name?: string,
     public readonly photo?: string,
     public readonly role?: string,
-    public readonly category?: string
+    public readonly category?: string | undefined
   ) {}
 
   public async login(): Promise<AuthReturnData> {

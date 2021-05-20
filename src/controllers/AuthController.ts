@@ -50,11 +50,10 @@ class AuthController extends Controller {
   ): Promise<void> {
     try {
       const userService = new UserService(
+        req.body.name,
         req.body.email,
         req.body.password,
-        req.body.name,
-        req.body.lastName,
-        req.body.profileImage,
+        req.body.photo,
         req.body.role,
         req.body.category
       );

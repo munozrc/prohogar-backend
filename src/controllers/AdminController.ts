@@ -44,10 +44,17 @@ class AdminController extends Controller {
   ): Promise<void> {
     try {
       const { filterState } = req.body;
-      const data = AdminService.getServices(filterState);
-      if (data.length === 0)
-        super.sendSuccess(res, { services: "No services yet." });
-      super.sendSuccess(res, data);
+      if (
+        typeof filterState === "number" ||
+        typeof filterState === "undefined"
+      ) {
+        const data = AdminService.getServices(filterState);
+        if (data.length === 0)
+          super.sendSuccess(res, { services: "No services yet." });
+        else super.sendSuccess(res, data);
+      } else {
+        super.sendSuccess(res, { services: "Invalid status." });
+      }
     } catch (error) {
       console.error(error);
       super.sendError(res);

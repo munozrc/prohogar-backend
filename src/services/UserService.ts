@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET } from "../config";
 import { ISafeData, UserModel } from "../typings";
 import { users } from "../models/Users";
-import createUser from "../utils/createUser";
 import { professionals } from "../models/Professionals";
+import createUser from "../utils/createUser";
 
 interface AuthReturnData {
   message: string;

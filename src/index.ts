@@ -9,12 +9,16 @@ import cors from "cors";
 // Controllers
 import Controller from "./typings/Controller";
 import AuthController from "./controllers/AuthController";
+import AdminController from "./controllers/AdminController";
 import { PORT } from "./config";
 
 const app: express.Application = express();
 const server: Server = new Server(app, PORT);
 
-const controllers: Array<Controller> = [new AuthController()];
+const controllers: Array<Controller> = [
+  new AuthController(),
+  new AdminController(),
+];
 
 const globalMiddleware: Array<express.RequestHandler> = [
   urlencoded({ extended: false }),

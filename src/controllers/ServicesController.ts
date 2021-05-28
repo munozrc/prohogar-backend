@@ -1,5 +1,5 @@
 import express from "express";
-import Token from "../Middlewares/Token";
+import Token from "../middlewares/Token";
 import RequestService from "../services/RequestService";
 import Controller, { Methods } from "../typings/Controller";
 

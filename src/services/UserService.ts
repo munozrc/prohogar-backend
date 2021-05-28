@@ -83,10 +83,10 @@ class UserService {
     const token = jwt.sign({ user }, ACCESS_TOKEN_SECRET, { expiresIn: "30d" });
     const data: ISafeData = {
       user: {
-        id: user.id || "",
-        name: user.name || "",
-        photo: user.photo || "",
-        role: user.role || "",
+        id: user.id,
+        name: user.name,
+        photo: user.photo,
+        role: user.role,
         category: user.category,
       },
       jwt: token,

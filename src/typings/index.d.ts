@@ -8,12 +8,12 @@ declare global {
 
 export type UserModel = {
   id?: string;
-  name: string | undefined;
+  name?: string;
   email: string;
   password: string;
-  photo: string | undefined;
-  role: string | undefined;
-  category?: string | undefined;
+  photo?: string;
+  role?: string;
+  category?: string;
 };
 
 export type ServiceModel = {

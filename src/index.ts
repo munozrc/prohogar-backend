@@ -10,6 +10,7 @@ import cors from "cors";
 import Controller from "./typings/Controller";
 import AuthController from "./controllers/AuthController";
 import AdminController from "./controllers/AdminController";
+import ServicesController from "./controllers/ServicesController";
 import { PORT } from "./config";
 
 const app: express.Application = express();
@@ -18,6 +19,7 @@ const server: Server = new Server(app, PORT);
 const controllers: Array<Controller> = [
   new AuthController(),
   new AdminController(),
+  new ServicesController(),
 ];
 
 const globalMiddleware: Array<express.RequestHandler> = [

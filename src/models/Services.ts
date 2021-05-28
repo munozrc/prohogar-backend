@@ -1,6 +1,7 @@
 export let services = [
   {
-    id: "f5fba40c-4dc9-44b7-86e1-513d5e7f1bb2", // ID client
+    id: "406d6fab-7b70-4169-8619-464faca5777e",
+    client: "f5fba40c-4dc9-44b7-86e1-513d5e7f1bb2",
     state: 0,
     title: "Reparacion de muebles",
     category: "Tapicero",

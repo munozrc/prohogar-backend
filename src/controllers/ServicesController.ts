@@ -12,12 +12,12 @@ class ServicesController extends Controller {
       handler: this.handleGetServices,
       localMiddleware: [Token.verify],
     },
-    // {
-    //   path: "/services",
-    //   method: Methods.POST,
-    //   handler: this.handleCreateService,
-    //   localMiddleware: [],
-    // },
+    {
+      path: "/services",
+      method: Methods.POST,
+      handler: this.handleCreateService,
+      localMiddleware: [Token.verify],
+    },
   ];
 
   constructor() {
@@ -30,7 +30,7 @@ class ServicesController extends Controller {
     next: express.NextFunction
   ): Promise<void> {
     try {
-      const { id } = req.body;
+      const { id } = req.verifiedUser;
       if (typeof id === "string") {
         const userService = new RequestService(id);
         const data = await userService.getServices();
@@ -48,31 +48,31 @@ class ServicesController extends Controller {
     }
   }
 
-  // async handleCreateService(
-  //   req: express.Request,
-  //   res: express.Response,
-  //   next: express.NextFunction
-  // ): Promise<void> {
-  //   try {
-  //     const userService = new UserService(
-  //       req.body.email,
-  //       req.body.password,
-  //       req.body.name,
-  //       req.body.photo,
-  //       req.body.role,
-  //       req.body.category
-  //     );
-  //     const data = await userService.register();
-  //     if (data.success) {
-  //       super.sendSuccess(res, data.data!, data.message);
-  //     } else {
-  //       super.sendError(res, data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     super.sendError(res);
-  //   }
-  // }
+  async handleCreateService(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
+    try {
+      const { id } = req.verifiedUser;
+      const userService = new RequestService(
+        id,
+        req.body.title,
+        req.body.category,
+        req.body.location,
+        req.body.description
+      );
+      const data = await userService.addSercice();
+      if (data.success) {
+        super.sendSuccess(res, data.data!, data.message);
+      } else {
+        super.sendError(res, data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      super.sendError(res);
+    }
+  }
 }
 
 export default ServicesController;

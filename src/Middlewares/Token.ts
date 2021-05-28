@@ -15,7 +15,7 @@ export default class Token {
         data: {
           tokenVerificationData: {
             access: false,
-            message: "No token provided",
+            message: "No token provided.",
           },
         },
       });
@@ -30,7 +30,7 @@ export default class Token {
           data: {
             tokenVerificationData: {
               access: false,
-              message: "Failed to verify token",
+              message: "Failed to verify token.",
             },
           },
         });

@@ -1,12 +1,18 @@
 import { professionals } from "../models/Professionals";
 import { v4 as uuidv4 } from "uuid";
-import { ServiceModel } from "../typings";
+import { ProfessionalModel, ServiceModel } from "../typings";
 import { services } from "../models/Services";
 
 export default function createService(service: ServiceModel): ServiceModel {
   const listProfessionals = professionals
     .filter((pro) => pro.category === service.category)
-    .map((pro) => pro.id);
+    .map((pro) => {
+      const object: ProfessionalModel = {
+        id: pro.id,
+        acceptRequest: false,
+      };
+      return object;
+    });
 
   const newService = {
     id: uuidv4(),

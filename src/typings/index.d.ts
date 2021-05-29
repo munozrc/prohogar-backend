@@ -25,8 +25,13 @@ export type ServiceModel = {
   location: string;
   description: string;
   date?: string;
-  professionals?: Array<string>;
+  professionals?: Array<ProfessionalModel>;
   professional?: string | null;
+};
+
+export type ProfessionalModel = {
+  id: string;
+  acceptRequest: boolean;
 };
 
 export interface ISafeData {

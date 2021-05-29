@@ -8,7 +8,12 @@ export let services = [
     location: "Carrera 30A # 15 - 20 /B San José",
     description: "Esta es una descripción de prueba",
     date: "May 17, 2021 03:24:00",
-    professionals: ["847be925-ebf3-47ca-937f-192443276f0d"],
+    professionals: [
+      {
+        id: "847be925-ebf3-47ca-937f-192443276f0d",
+        acceptRequest: false,
+      },
+    ],
     professional: null,
   },
 ];

@@ -9,6 +9,8 @@ export default function createService(service: ServiceModel): ServiceModel {
     .map((pro) => {
       const object: ProfessionalModel = {
         id: pro.id,
+        name: "",
+        photo: "",
         acceptRequest: false,
       };
       return object;

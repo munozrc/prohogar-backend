@@ -31,6 +31,8 @@ export type ServiceModel = {
 
 export type ProfessionalModel = {
   id: string;
+  name: string;
+  photo: string;
   acceptRequest: boolean;
 };
 

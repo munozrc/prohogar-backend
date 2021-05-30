@@ -12,8 +12,7 @@ export let services = [
       {
         id: "847be925-ebf3-47ca-937f-192443276f0d",
         name: "Robert Acevedo",
-        photo:
-          "https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/studio77-mckinsey-6324-pai_2_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=55917e7d24c836e35c75c2e13078e569",
+        photo: "https://bit.ly/3uASeyP",
         acceptRequest: true,
       },
     ],

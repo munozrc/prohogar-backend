@@ -28,7 +28,7 @@ class UsersController extends Controller {
       if (typeof id === "string") {
         const userFind = getUserById(id);
         if (userFind !== null) {
-          super.sendSuccess(res, userFind, "SUCCESFUL_QUERY");
+          super.sendSuccess(res, userFind, "SUCCESSFUL_QUERY");
         } else {
           super.sendError(res, "NOT_FOUND_USER");
         }

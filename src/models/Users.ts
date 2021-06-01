@@ -4,7 +4,7 @@ export let users = [
     name: "Jhon Torres",
     email: "jhon@gmail.com",
     password: "f5fba40c",
-    photo: "https://bit.ly/3fAkGwB",
+    photo: "https://bit.ly/3i3ziX3",
     role: "client",
   },
   {

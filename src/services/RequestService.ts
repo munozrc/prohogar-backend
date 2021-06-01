@@ -1,3 +1,4 @@
+import { professionals } from "../models/Professionals";
 import { services } from "../models/Services";
 import createService from "../utils/createService";
 
@@ -9,17 +10,17 @@ interface AuthReturnData {
 
 class RequestService {
   constructor(
-    public readonly client: string,
+    public readonly id: string,
     public readonly title?: string,
     public readonly category?: string,
     public readonly location?: string,
     public readonly description?: string
   ) {}
 
-  public async getServices(): Promise<AuthReturnData> {
+  public async getServicesByClient(): Promise<AuthReturnData> {
     try {
       const servicesDb = services.filter(
-        (service) => service.client === this.client
+        (service) => service.client === this.id
       );
       return {
         message: "SUCCESSFUL_QUERY",
@@ -32,10 +33,26 @@ class RequestService {
     }
   }
 
-  public async addSercice(): Promise<AuthReturnData> {
+  public async getRequestsByPro(): Promise<AuthReturnData> {
+    try {
+      const servicesDb = services.filter((service) => {
+        return service.professionals.filter((pro) => pro.id === this.id);
+      });
+      return {
+        message: "SUCCESSFUL_QUERY",
+        success: true,
+        data: servicesDb,
+      };
+    } catch (error) {
+      console.log(error);
+      return { message: "FATAL_SERVER_ERROR", success: false };
+    }
+  }
+
+  public async addServiceByClient(): Promise<AuthReturnData> {
     try {
       const newService = createService({
-        client: this.client,
+        client: this.id,
         title: this.title || "",
         category: this.category || "",
         location: this.location || "",

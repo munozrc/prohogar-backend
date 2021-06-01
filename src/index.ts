@@ -11,6 +11,8 @@ import Controller from "./typings/Controller";
 import AuthController from "./controllers/AuthController";
 import AdminController from "./controllers/AdminController";
 import ServicesController from "./controllers/ServicesController";
+import RequestsController from "./controllers/RequestsController";
+import UsersController from "./controllers/UsersController";
 import { PORT } from "./config";
 
 const app: express.Application = express();
@@ -20,6 +22,8 @@ const controllers: Array<Controller> = [
   new AuthController(),
   new AdminController(),
   new ServicesController(),
+  new RequestsController(),
+  new UsersController(),
 ];
 
 const globalMiddleware: Array<express.RequestHandler> = [

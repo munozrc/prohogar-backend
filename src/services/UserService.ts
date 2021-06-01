@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 import { ACCESS_TOKEN_SECRET } from "../config";
 import { ISafeData, UserModel } from "../typings";
 import { users } from "../models/Users";
 import { professionals } from "../models/Professionals";
-import createUser from "../utils/createUser";
 
 interface AuthReturnData {
   message: string;
@@ -54,16 +54,21 @@ class UserService {
     try {
       const userFromDb = users.find((user) => user.email === this.email);
       if (!userFromDb) {
-        const newUser = createUser({
-          name: this.name,
+        const newUser = {
+          id: uuidv4(),
+          name: this.name || "",
           email: this.email,
           password: this.password,
-          photo: this.photo,
-          role: this.role,
-          category: this.category,
-        });
+          photo: this.photo || "",
+          role: this.role || "",
+        };
 
-        const data = this.prepareData(newUser);
+        if (typeof this.category !== "undefined")
+          professionals.push({ id: newUser.id, category: this.category });
+
+        users.push(newUser);
+
+        const data = this.prepareData({ ...newUser, category: this.category });
 
         return {
           message: "SUCCESSFULLY_REGISTERED",

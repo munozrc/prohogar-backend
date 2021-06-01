@@ -114,6 +114,26 @@ class RequestService {
     }
   }
 
+  public static async getAvailableCategories(): Promise<AuthReturnData> {
+    try {
+      let categories: { [key: string]: number } = {};
+      professionals.forEach((pro) => {
+        const current = pro.category;
+        if (current in categories) ++categories[current];
+        else categories[current] = 1;
+      });
+
+      return {
+        message: "SUCCESSFUL_QUERY",
+        success: true,
+        data: categories,
+      };
+    } catch (e) {
+      console.log(e);
+      return { message: "FATAL_SERVER_ERROR", success: false };
+    }
+  }
+
   private normalizeService(service: ServiceModel): object {
     const clientFind = users.find((user) => user.id === service.client);
     const listProfessionals = service.professionals || [];

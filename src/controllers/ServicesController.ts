@@ -18,6 +18,12 @@ class ServicesController extends Controller {
       handler: this.handleCreateService,
       localMiddleware: [Token.verify],
     },
+    {
+      path: "/categories",
+      method: Methods.GET,
+      handler: this.handleGetCategories,
+      localMiddleware: [Token.verify],
+    },
   ];
 
   constructor() {
@@ -32,8 +38,8 @@ class ServicesController extends Controller {
     try {
       const { id } = req.verifiedUser;
       if (typeof id === "string") {
-        const userService = new RequestService(id);
-        const data = await userService.getServicesByClient();
+        const requestService = new RequestService(id);
+        const data = await requestService.getServicesByClient();
         if (data.success) {
           super.sendSuccess(res, data.data!, data.message);
         } else {
@@ -55,14 +61,32 @@ class ServicesController extends Controller {
   ): Promise<void> {
     try {
       const { id } = req.verifiedUser;
-      const userService = new RequestService(
+      const requestService = new RequestService(
         id,
         req.body.title,
         req.body.category,
         req.body.location,
         req.body.description
       );
-      const data = await userService.addServiceByClient();
+      const data = await requestService.addServiceByClient();
+      if (data.success) {
+        super.sendSuccess(res, data.data!, data.message);
+      } else {
+        super.sendError(res, data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      super.sendError(res);
+    }
+  }
+
+  async handleGetCategories(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> {
+    try {
+      const data = await RequestService.getAvailableCategories();
       if (data.success) {
         super.sendSuccess(res, data.data!, data.message);
       } else {

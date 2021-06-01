@@ -8,7 +8,7 @@
 - web framework: **expresss.js**
 - auth is based on **JWT**
 
-### Available Scripts
+## Available Scripts
 
 Start development server
 

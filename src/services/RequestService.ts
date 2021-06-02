@@ -23,7 +23,8 @@ class RequestService {
     try {
       const listServices = services
         .filter((service) => service.client === this.id)
-        .map(this.normalizeService);
+        .map(this.normalizeService)
+        .reverse();
 
       return {
         message: "SUCCESSFUL_QUERY",
@@ -42,7 +43,8 @@ class RequestService {
         .filter((service) => {
           return service.professionals.filter((pro) => pro.id === this.id);
         })
-        .map(this.normalizeService);
+        .map(this.normalizeService)
+        .reverse();
 
       return {
         message: "SUCCESSFUL_QUERY",

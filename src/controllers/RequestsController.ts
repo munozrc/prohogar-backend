@@ -14,7 +14,7 @@ class RequestsController extends Controller {
     },
     {
       path: "/requests",
-      method: Methods.POST,
+      method: Methods.PUT,
       handler: this.handleAnswerRequest,
       localMiddleware: [Token.verify],
     },
@@ -55,14 +55,8 @@ class RequestsController extends Controller {
   ): Promise<void> {
     try {
       const { id } = req.verifiedUser;
-      const requestService = new RequestService(
-        id,
-        req.body.title,
-        req.body.category,
-        req.body.location,
-        req.body.description
-      );
-      const data = await requestService.addServiceByClient();
+      const { service, value } = req.body;
+      const data = await RequestService.answerRequest(service, id, value);
       if (data.success) {
         super.sendSuccess(res, data.data!, data.message);
       } else {

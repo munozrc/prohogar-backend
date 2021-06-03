@@ -136,6 +136,43 @@ class RequestService {
     }
   }
 
+  public static async answerRequest(
+    service: string,
+    id: string,
+    value: boolean
+  ): Promise<AuthReturnData> {
+    return new Promise((resolve, reject) => {
+      services.forEach(async (current) => {
+        if (current.id === service) {
+          current.professionals.forEach((professional) => {
+            if (professional.id === id) {
+              professional.acceptRequest = value;
+              resolve(true);
+            }
+          });
+        }
+      });
+      resolve(false);
+    })
+      .then((response) => {
+        if (response) {
+          return {
+            message: "SUCCESSFUL_UPDATE_REQUEST",
+            success: true,
+          };
+        } else {
+          return {
+            message: "FAIL_UPDATE_REQUEST",
+            success: false,
+          };
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        return { message: "FATAL_SERVER_ERROR", success: false };
+      });
+  }
+
   private normalizeService(service: ServiceModel): object {
     const clientFind = users.find((user) => user.id === service.client);
     const listProfessionals = service.professionals || [];

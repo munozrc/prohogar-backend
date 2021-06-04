@@ -18,12 +18,7 @@ export default class SocketServer {
 
   constructor(server: http.Server) {
     this.server = server;
-    this.io = new Server(this.server, {
-      cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"],
-      },
-    });
+    this.io = new Server(this.server);
   }
 
   public run(): void {

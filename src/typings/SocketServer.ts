@@ -3,13 +3,14 @@ import http from "http";
 
 enum Events {
   CONNECTION = "connection",
-  CONNECT_USER = "connectUser",
-  DISCONNECT_USER = "disconnectUser",
+  USER_CONNECT = "userConnect",
+  USER_DISCONNECT = "userDisconnect",
+  GET_USERS_CONNECT = "getUsersConnected",
   SET_SERVICES = "setServices",
   NEW_SERVICES = "newServices",
 }
 
-let usersCurrent: Array<string> = [];
+let users: Array<string> = [];
 
 export default class SocketServer {
   public static readonly PORT: number = 7000;
@@ -25,21 +26,19 @@ export default class SocketServer {
 
   public run(): void {
     this.io.on(Events.CONNECTION, (socket: Socket) => {
-      const user = socket.handshake.auth.id;
-      console.log("[*] Socket: user<" + user + ">");
-      if (!usersCurrent.find((current) => current === user))
-        usersCurrent.push(user);
+      console.log("[*] Server: new user");
 
-      socket.broadcast.emit(Events.CONNECT_USER, {
-        users: usersCurrent,
+      socket.on(Events.USER_CONNECT, (id: string) => {
+        console.log("[*] Socket: user<" + id + "> is connected");
+        if (!users.find((current) => current === id)) users.push(id);
+        socket.emit(Events.GET_USERS_CONNECT, users);
+        socket.broadcast.emit(Events.GET_USERS_CONNECT, users);
       });
 
-      socket.on(Events.DISCONNECT_USER, (id: string) => {
-        console.log("[*] Socket: user-disconnect<" + id + ">");
-        usersCurrent = usersCurrent.filter((current) => current !== id);
-        socket.broadcast.emit(Events.DISCONNECT_USER, {
-          users: usersCurrent,
-        });
+      socket.on(Events.USER_DISCONNECT, (id: string) => {
+        console.log("[*] Socket: user<" + id + "> is disconnect");
+        users = users.filter((current) => current !== id);
+        socket.broadcast.emit(Events.GET_USERS_CONNECT, users);
       });
     });
   }

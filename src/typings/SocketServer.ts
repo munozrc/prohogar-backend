@@ -18,7 +18,12 @@ export default class SocketServer {
 
   constructor(server: http.Server) {
     this.server = server;
-    this.io = new Server(this.server);
+    this.io = new Server(this.server, {
+      cors: {
+        origin: "https://prohogar-backend.herokuapp.com/",
+        methods: ["GET", "POST"],
+      },
+    });
   }
 
   public run(): void {

@@ -1,5 +1,6 @@
 import express from "express";
 import Server from "./typings/Server";
+import SocketServer from "./typings/SocketServer";
 
 // middleware
 import { json, urlencoded } from "body-parser";
@@ -31,10 +32,10 @@ const globalMiddleware: Array<express.RequestHandler> = [
   json(),
 ];
 
-Promise.resolve()
-  // .then(() => server.database())
-  .then(() => {
-    server.loadMiddleware(globalMiddleware);
-    server.loadControllers(controllers);
-    server.run();
-  });
+Promise.resolve().then(() => {
+  server.loadMiddleware(globalMiddleware);
+  server.loadControllers(controllers);
+  const httpServer = server.run();
+  const socketServer = new SocketServer(httpServer);
+  socketServer.run();
+});

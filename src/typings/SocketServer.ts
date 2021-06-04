@@ -18,7 +18,9 @@ export default class SocketServer {
 
   constructor(server: http.Server) {
     this.server = server;
-    this.io = new Server(this.server);
+    this.io = new Server(this.server, {
+      cors: { credentials: true, origin: true },
+    });
   }
 
   public run(): void {

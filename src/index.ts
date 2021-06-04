@@ -5,6 +5,7 @@ import SocketServer from "./typings/SocketServer";
 // middleware
 import { json, urlencoded } from "body-parser";
 import morgan from "morgan";
+import cors from "cors";
 
 // Controllers
 import Controller from "./typings/Controller";
@@ -26,6 +27,7 @@ const controllers: Array<Controller> = [
 
 const globalMiddleware: Array<express.RequestHandler> = [
   urlencoded({ extended: false }),
+  cors({ credentials: true, origin: true }),
   morgan("dev"),
   json(),
 ];

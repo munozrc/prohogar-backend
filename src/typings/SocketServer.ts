@@ -20,7 +20,7 @@ export default class SocketServer {
     this.server = server;
     this.io = new Server(this.server, {
       cors: {
-        origin: "https://prohogar-backend.herokuapp.com/",
+        origin: "https://iamcarlosmunoz.github.io/",
         methods: ["GET", "POST"],
       },
     });

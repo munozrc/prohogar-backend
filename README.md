@@ -26,7 +26,11 @@ npm run build
 
 some preset users in the rest api
 
-| Name           | Email              | Password   | Role         |
-| -------------- | ------------------ | ---------- | ------------ |
-| Jhon Torres    | `jhon@gmail.com`   | `f5fba40c` | client       |
-| Robert Acevedo | `robert@gmail.com` | `f5fba40c` | professional |
+| Name             | Email                | Password   | Role         | Category |
+| ---------------- | -------------------- | ---------- | ------------ | -------- |
+| Jhon Torres      | `jhon@gmail.com`     | `f5fba40c` | client       | none     |
+| Robert Acevedo   | `robert@gmail.com`   | `f5fba40c` | professional | Tapicero |
+| Martina Castillo | `martina@gmail.com`  | `f5fba40c` | professional | Mudanzas |
+| Alex Rubio       | `alex@gmail.com`     | `f5fba40c` | professional | Plomero  |
+| Raphael Romero   | `raphael@gmail.com`  | `f5fba40c` | professional | Tapicero |
+| Fernando Hurtado | `fernando@gmail.com` | `f5fba40c` | professional | Tapicero |

@@ -5,7 +5,8 @@ enum Events {
   CONNECTION = "connection",
   USER_CONNECT = "userConnect",
   USER_DISCONNECT = "userDisconnect",
-  GET_USERS_CONNECT = "getUsersConnected",
+  GET_USERS_ONLINE = "getUsersOnline",
+  NEW_USERS_ONLINE = "newUserOnline",
   SET_SERVICES = "setServices",
   NEW_SERVICES = "newServices",
 }
@@ -31,14 +32,18 @@ export default class SocketServer {
       socket.on(Events.USER_CONNECT, (id: string) => {
         console.log("[*] Socket: user<" + id + "> is connected");
         if (!users.find((current) => current === id)) users.push(id);
-        socket.emit(Events.GET_USERS_CONNECT, users);
-        socket.broadcast.emit(Events.GET_USERS_CONNECT, users);
+        socket.broadcast.emit(Events.NEW_USERS_ONLINE, users);
+      });
+
+      socket.on(Events.GET_USERS_ONLINE, () => {
+        console.log("[*] user request all users");
+        socket.emit(Events.GET_USERS_ONLINE, users);
       });
 
       socket.on(Events.USER_DISCONNECT, (id: string) => {
         console.log("[*] Socket: user<" + id + "> is disconnect");
         users = users.filter((current) => current !== id);
-        socket.broadcast.emit(Events.GET_USERS_CONNECT, users);
+        socket.broadcast.emit(Events.GET_USERS_ONLINE, users);
       });
     });
   }

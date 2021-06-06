@@ -147,30 +147,20 @@ class RequestService {
           current.professionals.forEach((professional) => {
             if (professional.id === id) {
               professional.acceptRequest = value;
-              resolve(true);
+              resolve({
+                message: "SUCCESSFUL_UPDATE_REQUEST",
+                success: true,
+                data: current,
+              });
             }
           });
         }
       });
-      resolve(false);
-    })
-      .then((response) => {
-        if (response) {
-          return {
-            message: "SUCCESSFUL_UPDATE_REQUEST",
-            success: true,
-          };
-        } else {
-          return {
-            message: "FAIL_UPDATE_REQUEST",
-            success: false,
-          };
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        return { message: "FATAL_SERVER_ERROR", success: false };
+      reject({
+        message: "FAIL_UPDATE_REQUEST",
+        success: false,
       });
+    });
   }
 
   private normalizeService(service: ServiceModel): object {

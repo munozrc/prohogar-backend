@@ -40,9 +40,9 @@ class RequestService {
   public async getRequestsByPro(): Promise<AuthReturnData> {
     try {
       const listServices = services
-        .filter((service) => {
-          return service.professionals.filter((pro) => pro.id === this.id);
-        })
+        .filter((service) =>
+          service.professionals.find((pro) => pro.id === this.id)
+        )
         .map(this.normalizeService)
         .reverse();
 

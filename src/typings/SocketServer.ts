@@ -7,7 +7,7 @@ enum Events {
   USER_DISCONNECT = "userDisconnect",
   GET_USERS_ONLINE = "getUsersOnline",
   NEW_USERS_ONLINE = "newUserOnline",
-  SET_SERVICES = "setServices",
+  NEW_SERVICES_BY_CLIENT = "newServiceByClient",
   NEW_SERVICES = "newServices",
 }
 
@@ -38,6 +38,10 @@ export default class SocketServer {
       socket.on(Events.GET_USERS_ONLINE, () => {
         console.log("[*] user request all users");
         socket.emit(Events.GET_USERS_ONLINE, users);
+      });
+
+      socket.on(Events.NEW_SERVICES_BY_CLIENT, (listUsersPro) => {
+        socket.broadcast.emit(Events.NEW_SERVICES_BY_CLIENT, listUsersPro);
       });
 
       socket.on(Events.USER_DISCONNECT, (id: string) => {

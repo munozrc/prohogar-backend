@@ -9,6 +9,7 @@ enum Events {
   NEW_USERS_ONLINE = "newUserOnline",
   NEW_SERVICES_BY_CLIENT = "newServiceByClient",
   ANSWER_REQUEST = "answerRequest",
+  CONTRACT_PRO = "contractProfessional",
 }
 
 let users: Array<string> = [];
@@ -46,6 +47,10 @@ export default class SocketServer {
 
       socket.on(Events.ANSWER_REQUEST, (service) => {
         socket.broadcast.emit(Events.ANSWER_REQUEST, service);
+      });
+
+      socket.on(Events.CONTRACT_PRO, (service) => {
+        socket.broadcast.emit(Events.CONTRACT_PRO, service);
       });
 
       socket.on(Events.USER_DISCONNECT, (id: string) => {

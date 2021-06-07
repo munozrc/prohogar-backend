@@ -19,6 +19,12 @@ class ServicesController extends Controller {
       localMiddleware: [Token.verify],
     },
     {
+      path: "/services",
+      method: Methods.PUT,
+      handler: this.handleContractProfessional,
+      localMiddleware: [Token.verify],
+    },
+    {
       path: "/categories",
       method: Methods.GET,
       handler: this.handleGetCategories,
@@ -33,7 +39,7 @@ class ServicesController extends Controller {
   async handleGetServices(
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    _next: express.NextFunction
   ): Promise<void> {
     try {
       const { id } = req.verifiedUser;
@@ -57,7 +63,7 @@ class ServicesController extends Controller {
   async handleCreateService(
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    _next: express.NextFunction
   ): Promise<void> {
     try {
       const { id } = req.verifiedUser;
@@ -80,10 +86,32 @@ class ServicesController extends Controller {
     }
   }
 
-  async handleGetCategories(
+  async handleContractProfessional(
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    _next: express.NextFunction
+  ): Promise<void> {
+    try {
+      const data = await RequestService.contractProfessional(
+        req.body.service,
+        req.body.professional,
+        req.body.value
+      );
+      if (data.success) {
+        super.sendSuccess(res, data.data!, data.message);
+      } else {
+        super.sendError(res, data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      super.sendError(res);
+    }
+  }
+
+  async handleGetCategories(
+    _req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction
   ): Promise<void> {
     try {
       const data = await RequestService.getAvailableCategories();

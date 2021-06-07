@@ -41,7 +41,7 @@ class RequestService {
     try {
       const listServices = services
         .filter((service) =>
-          service.professionals.find((pro) => pro.id === this.id)
+          service.professionals?.find((pro) => pro.id === this.id)
         )
         .map(this.normalizeService)
         .reverse();
@@ -144,7 +144,7 @@ class RequestService {
     return new Promise((resolve, reject) => {
       services.forEach(async (current) => {
         if (current.id === service) {
-          current.professionals.forEach((professional) => {
+          current.professionals?.forEach((professional) => {
             if (professional.id === id) {
               professional.acceptRequest = value;
               resolve({
@@ -158,6 +158,30 @@ class RequestService {
       });
       reject({
         message: "FAIL_UPDATE_REQUEST",
+        success: false,
+      });
+    });
+  }
+
+  public static async contractProfessional(
+    service: string,
+    idProfessional: string,
+    value: number
+  ): Promise<AuthReturnData> {
+    return new Promise((resolve, reject) => {
+      services.forEach(async (current) => {
+        if (current.id === service) {
+          current.state = value;
+          current.professional = idProfessional;
+          resolve({
+            message: "HIRED_PROFESSIONAL",
+            success: true,
+            data: current,
+          });
+        }
+      });
+      reject({
+        message: "FAIL_HIRED_PROFESSIONAL",
         success: false,
       });
     });

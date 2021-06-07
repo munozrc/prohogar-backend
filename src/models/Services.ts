@@ -1,4 +1,6 @@
-export let services = [
+import { ServiceModel } from "../typings";
+
+export let services: ServiceModel[] = [
   {
     id: "406d6fab-7b70-4169-8619-464faca5777e",
     client: "f5fba40c-4dc9-44b7-86e1-513d5e7f1bb2",

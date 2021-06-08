@@ -3,6 +3,7 @@ import { ProfessionalModel, ServiceModel } from "../typings";
 import { services } from "../models/Services";
 import { users } from "../models/Users";
 import { professionals } from "../models/Professionals";
+import { StringLiteralType } from "typescript";
 
 interface AuthReturnData {
   message: string;
@@ -114,6 +115,27 @@ class RequestService {
       console.log(e);
       return { message: "FATAL_SERVER_ERROR", success: false };
     }
+  }
+
+  public static async deleteServiceByClient(
+    service: string
+  ): Promise<AuthReturnData> {
+    return new Promise((resolve, reject) => {
+      services.forEach(async (current) => {
+        if (typeof service === "string" && current.id === service) {
+          current.state = 3;
+          resolve({
+            message: "DELETED_SERVICE",
+            success: true,
+            data: current,
+          });
+        }
+      });
+      reject({
+        message: "FAIL_DELETED_SERVICE",
+        success: false,
+      });
+    });
   }
 
   public static async getAvailableCategories(): Promise<AuthReturnData> {

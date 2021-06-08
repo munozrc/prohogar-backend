@@ -8,6 +8,7 @@ enum Events {
   GET_USERS_ONLINE = "getUsersOnline",
   NEW_USERS_ONLINE = "newUserOnline",
   NEW_SERVICES_BY_CLIENT = "newServiceByClient",
+  DELETE_SERVICE_BY_CLIENT = "deleteRequest",
   ANSWER_REQUEST = "answerRequest",
   CONTRACT_PRO = "contractProfessional",
 }
@@ -51,6 +52,10 @@ export default class SocketServer {
 
       socket.on(Events.CONTRACT_PRO, (service) => {
         socket.broadcast.emit(Events.CONTRACT_PRO, service);
+      });
+
+      socket.on(Events.DELETE_SERVICE_BY_CLIENT, (service) => {
+        socket.broadcast.emit(Events.DELETE_SERVICE_BY_CLIENT, service);
       });
 
       socket.on(Events.USER_DISCONNECT, (id: string) => {

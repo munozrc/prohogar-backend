@@ -25,6 +25,12 @@ class ServicesController extends Controller {
       localMiddleware: [Token.verify],
     },
     {
+      path: "/services/:id",
+      method: Methods.DELETE,
+      handler: this.handleDeleteService,
+      localMiddleware: [Token.verify],
+    },
+    {
       path: "/categories",
       method: Methods.GET,
       handler: this.handleGetCategories,
@@ -75,6 +81,24 @@ class ServicesController extends Controller {
         req.body.description
       );
       const data = await requestService.addServiceByClient();
+      if (data.success) {
+        super.sendSuccess(res, data.data!, data.message);
+      } else {
+        super.sendError(res, data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      super.sendError(res);
+    }
+  }
+
+  async handleDeleteService(
+    req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction
+  ): Promise<void> {
+    try {
+      const data = await RequestService.deleteServiceByClient(req.params.id);
       if (data.success) {
         super.sendSuccess(res, data.data!, data.message);
       } else {
